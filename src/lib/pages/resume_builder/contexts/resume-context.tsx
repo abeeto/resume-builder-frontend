@@ -14,7 +14,6 @@ export interface ResumeData {
 
 export type ResumeAction =
   | { type: 'UPDATE_PERSONAL_INFO'; payload: Partial<PersonalInfo> }
-  | { type: 'SET_PERSONAL_INFO'; payload: PersonalInfo }
   | { type: 'RESET_RESUME' };
 
 const initialState: ResumeData = {
@@ -32,12 +31,6 @@ const resumeReducer = (state: ResumeData, action: ResumeAction): ResumeData => {
       return {
         ...state,
         personalInfo: { ...state.personalInfo, ...action.payload },
-      };
-
-    case 'SET_PERSONAL_INFO':
-      return {
-        ...state,
-        personalInfo: action.payload,
       };
 
     case 'RESET_RESUME':

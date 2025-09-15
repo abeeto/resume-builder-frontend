@@ -47,7 +47,7 @@ export const useAutoFetchPersonalInfo = (resumeId: string | undefined) => {
       url: `/api/resume/${resumeId}/personal-info/`,
       onSuccess: (personalInfo) => {
         dispatch({
-          type: 'SET_PERSONAL_INFO',
+          type: 'UPDATE_PERSONAL_INFO',
           payload: personalInfo,
         });
       },
