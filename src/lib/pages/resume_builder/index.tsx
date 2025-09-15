@@ -3,7 +3,7 @@ import { useParams } from '@tanstack/react-router';
 import { ResumeComponent } from '@/lib/pages/resume_builder/components/resume-component';
 import { ResumeEditor } from '@/lib/pages/resume_builder/components/resume-editor';
 import { ResumeProvider } from '@/lib/pages/resume_builder/contexts/resume-context';
-import { useFetchPersonalInfo } from '@/lib/pages/resume_builder/hooks/useResumeData';
+import { useFetchPersonalInfo } from '@/lib/pages/resume_builder/hooks/use-resume-data';
 
 const ResumeBuilderContent = () => {
   const { resumeId } = useParams({ from: '/resume/$resumeId' });
