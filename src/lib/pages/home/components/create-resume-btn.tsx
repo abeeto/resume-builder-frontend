@@ -4,13 +4,9 @@ import { Button } from '@/components/ui/button';
 
 export const CreateResumeBtn = ({ resumeId }: { resumeId: string }) => {
   return (
-    <div className="grid justify-items-center gap-2.5">
-      <Link
-        to="/resume/$resumeId"
-        className="flex items-center gap-2"
-        params={{ resumeId }}
-      >
-        <Button>Create Resume</Button>
+    <div className="grid gap-2.5">
+      <Link to="/resume/$resumeId" className="gap-2" params={{ resumeId }}>
+        <Button className="w-full bg-sky-600">Create New Resume</Button>
       </Link>
     </div>
   );

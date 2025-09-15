@@ -1,11 +1,11 @@
 export const SomeText = () => {
   return (
     <div className="grid gap-2.5">
-      <h1 className="bg-linear-to-br from-gray-200 to-teal-700 bg-clip-text text-2xl font-bold text-transparent md:text-3xl">
+      <h1 className="bg-linear-to-br from-gray-200 to-sky-700 bg-clip-text text-2xl font-bold text-transparent md:text-3xl">
         Resume Builder
       </h1>
       <p className="text-xs text-gray-500 md:text-sm">
-        Build your professional resume through a step-by-step guided process.
+        Build your professional resume. Step-by-step.
       </p>
     </div>
   );
