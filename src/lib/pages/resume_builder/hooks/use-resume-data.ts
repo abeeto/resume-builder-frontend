@@ -1,9 +1,14 @@
+import { useLocation } from '@tanstack/react-router';
 import { useEffect } from 'react';
 
 import {
   type PersonalInfo,
   useResume,
 } from '@/lib/pages/resume_builder/contexts/resume-context';
+
+interface LocationState {
+  isNew?: boolean;
+}
 
 interface FetchConfig<T> {
   url: string;
@@ -36,14 +41,15 @@ export const fetchResumeData = async <T>(
   }
 };
 
-export const useFetchPersonalInfo = (resumeId: string | undefined) => {
+export const useAutoFetchPersonalInfo = (resumeId: string | undefined) => {
   const { dispatch } = useResume();
+  const location = useLocation();
 
   useEffect(() => {
-    if (!resumeId) {
+    const state = location.state as LocationState;
+    if (!resumeId || state?.isNew === true) {
       return;
     }
-
     fetchResumeData<PersonalInfo>({
       url: `/api/resume/${resumeId}/personal-info/`,
       onSuccess: (personalInfo) => {
@@ -53,5 +59,5 @@ export const useFetchPersonalInfo = (resumeId: string | undefined) => {
         });
       },
     });
-  }, [resumeId, dispatch]);
+  }, [location.state, resumeId, dispatch]);
 };

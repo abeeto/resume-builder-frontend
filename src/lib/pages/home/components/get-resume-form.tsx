@@ -46,7 +46,8 @@ export const GetResumeForm = () => {
         return;
       }
       const { id: resume_id } = await response.json();
-      navigate({ to: `/resume/${resume_id}` });
+      // biome-ignore lint/suspicious/noExplicitAny: Router state typing issue
+      navigate({ to: `/resume/${resume_id}`, state: { isNew: false } as any });
     } catch (_error) {
       form.setError('resume_id', {
         type: 'manual',

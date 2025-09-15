@@ -2,6 +2,7 @@ import type React from 'react';
 import { createContext, useContext, useReducer } from 'react';
 
 export interface PersonalInfo {
+  id: string;
   full_name: string;
   phone_number: string;
   email: string;
@@ -18,6 +19,7 @@ export type ResumeAction =
 
 const initialState: ResumeData = {
   personalInfo: {
+    id: '',
     full_name: '',
     phone_number: '',
     email: '',

@@ -16,7 +16,12 @@ export const Route = createFileRoute('/resume/$resumeId')({
         }
         throw new Error(`Failed to fetch resume: ${response.status}`);
       }
-
+      if (!response.ok) {
+        if (response.status === 404) {
+          throw notFound();
+        }
+        throw new Error(`Failed to fetch resume: ${response.status}`);
+      }
       return await response.json();
     } catch (error) {
       if (error instanceof Response && error.status === 404) {
