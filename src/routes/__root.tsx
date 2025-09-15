@@ -2,6 +2,7 @@ import { createRootRoute, HeadContent, Outlet } from '@tanstack/react-router';
 import { TanStackRouterDevtools } from '@tanstack/react-router-devtools';
 
 import { Layout } from '@/lib/layout';
+import Page404 from '@/lib/pages/404';
 
 const title = 'Resume Builder';
 const description = 'Progressive resume builder application';
@@ -9,6 +10,11 @@ const url = 'http://localhost:3000';
 const ogImgUrl = '/og-image.png';
 
 export const Route = createRootRoute({
+  notFoundComponent: () => (
+    <Layout>
+      <Page404 />
+    </Layout>
+  ),
   head: () => ({
     meta: [
       {
