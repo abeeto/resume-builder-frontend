@@ -1,13 +1,25 @@
-import { Link } from '@tanstack/react-router';
+import { useNavigate } from '@tanstack/react-router';
 
 import { Button } from '@/components/ui/button';
 
-export const CreateResumeBtn = ({ resumeId }: { resumeId: string }) => {
+export const CreateResumeBtn = () => {
+  const navigate = useNavigate();
+
+  const handleCreateResume = async () => {
+    const response = await fetch('/api/resume/create/', {
+      method: 'POST',
+    });
+
+    const { id: resumeId } = await response.json();
+
+    navigate({ to: `/resume/${resumeId}` });
+  };
+
   return (
     <div className="mt-2">
-      <Link to="/resume/$resumeId" className="gap-2" params={{ resumeId }}>
-        <Button className="w-full bg-sky-600">Create New Resume</Button>
-      </Link>
+      <Button className="w-full bg-sky-600" onClick={handleCreateResume}>
+        Create New Resume
+      </Button>
     </div>
   );
 };

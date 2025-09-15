@@ -9,7 +9,7 @@ const Home = () => {
       <SomeText />
       <div className="flex w-[26rem] flex-col gap-4 min-h-[70vh] justify-center">
         <GetResumeForm />
-        <CreateResumeBtn resumeId="1234" />
+        <CreateResumeBtn />
       </div>
     </div>
   );
