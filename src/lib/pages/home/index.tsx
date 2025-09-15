@@ -5,9 +5,9 @@ import { CreateResumeBtn } from './components/create-resume-btn';
 
 const Home = () => {
   return (
-    <div className="flex flex-col md:flex-row items-center justify-center gap-8 text-center">
+    <div className="flex flex-col md:flex-row items-center justify-center gap-35 text-center">
       <SomeText />
-      <div className="flex flex-col gap-4 min-h-[70vh] justify-center">
+      <div className="flex w-[26rem] flex-col gap-4 min-h-[70vh] justify-center">
         <GetResumeForm />
         <CreateResumeBtn resumeId="1234" />
       </div>
