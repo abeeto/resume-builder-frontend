@@ -1,14 +1,9 @@
-import { useLocation } from '@tanstack/react-router';
 import { useEffect } from 'react';
 
 import {
   type PersonalInfo,
   useResume,
 } from '@/lib/pages/resume_builder/contexts/resume-context';
-
-interface LocationState {
-  isNew?: boolean;
-}
 
 interface FetchConfig<T> {
   url: string;
@@ -43,11 +38,9 @@ export const fetchResumeData = async <T>(
 
 export const useAutoFetchPersonalInfo = (resumeId: string | undefined) => {
   const { dispatch } = useResume();
-  const location = useLocation();
 
   useEffect(() => {
-    const state = location.state as LocationState;
-    if (!resumeId || state?.isNew === true) {
+    if (!resumeId) {
       return;
     }
     fetchResumeData<PersonalInfo>({
@@ -58,6 +51,16 @@ export const useAutoFetchPersonalInfo = (resumeId: string | undefined) => {
           payload: personalInfo,
         });
       },
+      onError: (error) => {
+        // Handle 404 as expected for new resumes
+        if (error.message.includes('404')) {
+          console.error(
+            'Personal info not found - will be created on first edit',
+          );
+          return;
+        }
+        console.error('Failed to fetch personal info:', error);
+      },
     });
-  }, [location.state, resumeId, dispatch]);
+  }, [resumeId, dispatch]);
 };

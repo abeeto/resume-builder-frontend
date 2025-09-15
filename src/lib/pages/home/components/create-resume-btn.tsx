@@ -11,8 +11,7 @@ export const CreateResumeBtn = () => {
     });
 
     const { id: resumeId } = await response.json();
-    // biome-ignore lint/suspicious/noExplicitAny: Router state typing issue
-    navigate({ to: `/resume/${resumeId}`, state: { isNew: true } as any });
+    navigate({ to: `/resume/${resumeId}` });
   };
 
   return (
