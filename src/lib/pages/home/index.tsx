@@ -1,11 +1,12 @@
-import { CTASection } from './components/cta-section';
-import { SomeText } from './components/some-text';
+import { SomeText } from '@/lib/pages/home/components/some-text';
+
+import { CreateResumeBtn } from './components/create-resume-btn';
 
 const Home = () => {
   return (
-    <div className="flex min-h-[60vh] flex-col items-center justify-center gap-8 text-center">
+    <div className="flex flex-col items-center justify-center gap-8 text-center">
       <SomeText />
-      <CTASection />
+      <CreateResumeBtn resumeId="1234" />
     </div>
   );
 };

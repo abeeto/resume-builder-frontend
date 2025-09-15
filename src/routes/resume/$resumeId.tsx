@@ -1,9 +1,7 @@
 import { createFileRoute } from '@tanstack/react-router';
 
-export const Route = createFileRoute('/resume/$resumeId')({
-  component: RouteComponent,
-});
+import ResumeBuilder from '@/lib/pages/resume_builder';
 
-function RouteComponent() {
-  return <div>Hello "/resume/$resumeId"!</div>;
-}
+export const Route = createFileRoute('/resume/$resumeId')({
+  component: ResumeBuilder,
+});
