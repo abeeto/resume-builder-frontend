@@ -27,6 +27,7 @@ export type ResumeAction =
   | { type: 'UPDATE_PERSONAL_INFO'; payload: Partial<PersonalInfo> }
   | { type: 'SET_EDUCATIONS'; payload: Array<Education> }
   | { type: 'ADD_EDUCATION'; payload: Education }
+  | { type: 'DELETE_EDUCATION'; payload: string }
   | { type: 'RESET_RESUME' }
   | { type: 'SET_IS_SAVING_TRUE' }
   | { type: 'SET_IS_SAVING_FALSE' };
@@ -60,6 +61,12 @@ const resumeReducer = (state: ResumeData, action: ResumeAction): ResumeData => {
       return {
         ...state,
         educations: [...state.educations, action.payload],
+      };
+
+    case 'DELETE_EDUCATION':
+      return {
+        ...state,
+        educations: state.educations.filter((edu) => edu.id !== action.payload),
       };
 
     case 'RESET_RESUME':

@@ -4,6 +4,7 @@ import { useEffect, useRef } from 'react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 
+import { Button } from '@/components/ui/button';
 import {
   Form,
   FormControl,
@@ -36,6 +37,23 @@ export function EducationInfoForm({
   const { resumeId } = useParams({ from: '/resume/$resumeId' });
 
   const education = state.educations.find((edu) => edu.id === educationId);
+
+  const handleDelete = async () => {
+    try {
+      const response = await fetch(`/api/education/${educationId}/delete/`, {
+        method: 'DELETE',
+      });
+
+      if (response.ok) {
+        dispatch({ type: 'DELETE_EDUCATION', payload: educationId });
+        onBack?.();
+      } else {
+        console.error('Failed to delete education');
+      }
+    } catch (error) {
+      console.error('Error deleting education:', error);
+    }
+  };
   const educationRef = useRef(education);
 
   const form = useForm<z.infer<typeof educationInfoSchema>>({
@@ -161,6 +179,11 @@ export function EducationInfoForm({
           />
         </form>
       </Form>
+      <div className="mt-6 pt-6 border-t border-gray-200">
+        <Button variant="destructive" onClick={handleDelete} className="w-fit">
+          Remove
+        </Button>
+      </div>
     </div>
   );
 }
