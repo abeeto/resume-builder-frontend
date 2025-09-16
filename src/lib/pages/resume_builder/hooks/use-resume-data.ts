@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 
 import {
+  type Education,
   type PersonalInfo,
   useResume,
 } from '@/lib/pages/resume_builder/contexts/resume-context';
@@ -60,6 +61,28 @@ export const useAutoFetchPersonalInfo = (resumeId: string | undefined) => {
           return;
         }
         console.error('Failed to fetch personal info:', error);
+      },
+    });
+  }, [resumeId, dispatch]);
+};
+
+export const useAutoFetchEducations = (resumeId: string | undefined) => {
+  const { dispatch } = useResume();
+
+  useEffect(() => {
+    if (!resumeId) {
+      return;
+    }
+    fetchResumeData<Array<Education>>({
+      url: `/api/resume/${resumeId}/education`,
+      onSuccess: (educations) => {
+        dispatch({
+          type: 'SET_EDUCATIONS',
+          payload: educations,
+        });
+      },
+      onError: (error) => {
+        console.error('Failed to fetch educations:', error);
       },
     });
   }, [resumeId, dispatch]);

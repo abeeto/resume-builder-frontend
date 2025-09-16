@@ -55,7 +55,7 @@ export function PersonalInfoForm() {
 
   return (
     <Form {...form}>
-      <form className="space-y-8">
+      <form className="space-y-4">
         <FormField
           control={form.control}
           name="full_name"

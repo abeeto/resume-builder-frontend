@@ -8,13 +8,25 @@ export interface PersonalInfo {
   email: string;
 }
 
+export interface Education {
+  id: string;
+  degree: string;
+  start_date: string;
+  end_date: string;
+  location: string;
+  resume_id: string;
+}
+
 export interface ResumeData {
   personalInfo: PersonalInfo;
+  educations: Array<Education>;
   isSaving: boolean;
 }
 
 export type ResumeAction =
   | { type: 'UPDATE_PERSONAL_INFO'; payload: Partial<PersonalInfo> }
+  | { type: 'SET_EDUCATIONS'; payload: Array<Education> }
+  | { type: 'ADD_EDUCATION'; payload: Education }
   | { type: 'RESET_RESUME' }
   | { type: 'SET_IS_SAVING_TRUE' }
   | { type: 'SET_IS_SAVING_FALSE' };
@@ -26,6 +38,7 @@ const initialState: ResumeData = {
     phone_number: '',
     email: '',
   },
+  educations: [],
   isSaving: false,
 };
 
@@ -35,6 +48,18 @@ const resumeReducer = (state: ResumeData, action: ResumeAction): ResumeData => {
       return {
         ...state,
         personalInfo: { ...state.personalInfo, ...action.payload },
+      };
+
+    case 'SET_EDUCATIONS':
+      return {
+        ...state,
+        educations: action.payload,
+      };
+
+    case 'ADD_EDUCATION':
+      return {
+        ...state,
+        educations: [...state.educations, action.payload],
       };
 
     case 'RESET_RESUME':
