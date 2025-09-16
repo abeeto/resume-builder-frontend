@@ -1,12 +1,13 @@
 import { useEffect, useRef } from 'react';
 import { type Control, useWatch } from 'react-hook-form';
 
+import { useResume } from '@/lib/pages/resume_builder/contexts/resume-context';
+
 export const useAutoSave = <T extends Record<string, unknown>>(
   control: Control<T>,
   resumeId: string | undefined,
   endpoint: string,
   onLocalUpdate?: (data: T) => void,
-  onApiSuccess?: (data: T) => void,
   delay = 1000,
 ) => {
   const watchedFields = useWatch({ control });
@@ -14,7 +15,7 @@ export const useAutoSave = <T extends Record<string, unknown>>(
   const isInitialRender = useRef(true);
   const previousDataRef = useRef<string>('');
   const lastLocalUpdateRef = useRef<string>('');
-
+  const { dispatch } = useResume();
   useEffect(() => {
     if (!resumeId) {
       return;
@@ -43,24 +44,31 @@ export const useAutoSave = <T extends Record<string, unknown>>(
     }
 
     timeoutRef.current = setTimeout(async () => {
-      // Debounced API call
       try {
-        const response = await fetch(endpoint, {
-          method: 'PUT',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(watchedFields),
+        dispatch({
+          type: 'SET_IS_SAVING_TRUE',
         });
 
+        const [response] = await Promise.all([
+          fetch(endpoint, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(watchedFields),
+          }),
+          new Promise((resolve) => setTimeout(resolve, 1500)), // Minimum 1500 saving state
+        ]);
+
         if (response.ok) {
-          if (onApiSuccess) {
-            onApiSuccess(watchedFields as T);
-          }
           previousDataRef.current = currentData;
         } else {
           console.error('API call failed with status:', response.status);
         }
       } catch (error) {
         console.error('Auto-save failed', error);
+      } finally {
+        dispatch({
+          type: 'SET_IS_SAVING_FALSE',
+        });
       }
     }, delay);
 
@@ -69,5 +77,5 @@ export const useAutoSave = <T extends Record<string, unknown>>(
         clearTimeout(timeoutRef.current);
       }
     };
-  }, [watchedFields, resumeId, endpoint, onLocalUpdate, onApiSuccess, delay]);
+  }, [watchedFields, resumeId, endpoint, onLocalUpdate, delay, dispatch]);
 };

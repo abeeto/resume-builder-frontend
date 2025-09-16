@@ -10,11 +10,14 @@ export interface PersonalInfo {
 
 export interface ResumeData {
   personalInfo: PersonalInfo;
+  isSaving: boolean;
 }
 
 export type ResumeAction =
   | { type: 'UPDATE_PERSONAL_INFO'; payload: Partial<PersonalInfo> }
-  | { type: 'RESET_RESUME' };
+  | { type: 'RESET_RESUME' }
+  | { type: 'SET_IS_SAVING_TRUE' }
+  | { type: 'SET_IS_SAVING_FALSE' };
 
 const initialState: ResumeData = {
   personalInfo: {
@@ -23,6 +26,7 @@ const initialState: ResumeData = {
     phone_number: '',
     email: '',
   },
+  isSaving: false,
 };
 
 const resumeReducer = (state: ResumeData, action: ResumeAction): ResumeData => {
@@ -35,7 +39,10 @@ const resumeReducer = (state: ResumeData, action: ResumeAction): ResumeData => {
 
     case 'RESET_RESUME':
       return initialState;
-
+    case 'SET_IS_SAVING_TRUE':
+      return { ...state, isSaving: true };
+    case 'SET_IS_SAVING_FALSE':
+      return { ...state, isSaving: false };
     default:
       return state;
   }

@@ -2,6 +2,7 @@ import { useParams } from '@tanstack/react-router';
 
 import { ResumeComponent } from '@/lib/pages/resume_builder/components/resume-component';
 import { ResumeEditor } from '@/lib/pages/resume_builder/components/resume-editor';
+import { ResumeInfo } from '@/lib/pages/resume_builder/components/resume-info';
 import { ResumeProvider } from '@/lib/pages/resume_builder/contexts/resume-context';
 import { useAutoFetchPersonalInfo } from '@/lib/pages/resume_builder/hooks/use-resume-data';
 
@@ -11,9 +12,12 @@ const ResumeBuilderContent = () => {
   useAutoFetchPersonalInfo(resumeId);
 
   return (
-    <div className="flex max-w-7xl md:justify-between md:flex-row flex-col align-center gap-3 mx-auto min-h-screen overflow-x-auto">
-      <ResumeEditor></ResumeEditor>
-      <ResumeComponent></ResumeComponent>
+    <div className="flex-col max-w-7xl mx-auto">
+      <ResumeInfo />
+      <div className="flex md:justify-between md:flex-row flex-col align-center gap-3 mx-auto min-h-screen overflow-x-auto">
+        <ResumeEditor></ResumeEditor>
+        <ResumeComponent></ResumeComponent>
+      </div>
     </div>
   );
 };
