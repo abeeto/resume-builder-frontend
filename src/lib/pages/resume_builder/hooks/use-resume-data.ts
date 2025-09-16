@@ -54,13 +54,6 @@ export const useAutoFetchPersonalInfo = (resumeId: string | undefined) => {
         });
       },
       onError: (error) => {
-        // Handle 404 as expected for new resumes
-        if (error.message.includes('404')) {
-          console.error(
-            'Personal info not found - will be created on first edit',
-          );
-          return;
-        }
         console.error('Failed to fetch personal info:', error);
       },
     });

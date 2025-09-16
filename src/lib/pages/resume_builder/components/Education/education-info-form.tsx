@@ -90,10 +90,6 @@ export function EducationInfoForm({
     },
   );
 
-  if (!education) {
-    return <div>Education not found</div>;
-  }
-
   return (
     <div>
       {onBack && (
