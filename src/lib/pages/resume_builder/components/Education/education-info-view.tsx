@@ -113,7 +113,7 @@ export const EducationInfoView = () => {
                 key={education.id}
                 type="button"
                 tabIndex={0}
-                className="p-3 border rounded-md cursor-pointer hover:bg-gray-50 transition-colors"
+                className="w-full text-left p-3 border rounded-md cursor-pointer hover:bg-gray-50 transition-colors"
                 onClick={() => setSelectedEducationId(education.id)}
               >
                 <div className="font-medium">{education.degree}</div>
