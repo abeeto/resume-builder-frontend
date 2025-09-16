@@ -8,7 +8,7 @@ export const useAutoSave = <T extends Record<string, unknown>>(
   resumeId: string | undefined,
   endpoint: string,
   onLocalUpdate?: (data: T) => void,
-  delay = 5000,
+  delay = 3500,
 ) => {
   const watchedFields = useWatch({ control });
   const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
