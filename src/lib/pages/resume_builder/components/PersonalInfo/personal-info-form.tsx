@@ -1,5 +1,6 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useParams } from '@tanstack/react-router';
+import { useEffect, useRef } from 'react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 
@@ -25,11 +26,20 @@ export function PersonalInfoForm() {
   const { state, dispatch } = useResume();
   const { personalInfo } = state;
   const { resumeId } = useParams({ from: '/resume/$resumeId' });
+  const personalInfoRef = useRef(personalInfo);
 
   const form = useForm<z.infer<typeof personalInfoSchema>>({
     resolver: zodResolver(personalInfoSchema),
     defaultValues: personalInfo,
   });
+
+  personalInfoRef.current = personalInfo;
+
+  useEffect(() => {
+    if (personalInfo.id) {
+      form.reset(personalInfoRef.current);
+    }
+  }, [personalInfo.id, form]);
 
   useAutoSave(
     form.control,
