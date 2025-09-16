@@ -15,21 +15,32 @@ export const useAutoSave = <T extends Record<string, unknown>>(
   const isInitialRender = useRef(true);
   const previousDataRef = useRef<string>('');
   const lastLocalUpdateRef = useRef<string>('');
+  const hasUserInteracted = useRef(false);
   const { dispatch } = useResume();
+
   useEffect(() => {
     if (!resumeId) {
-      return;
-    }
-    if (isInitialRender.current) {
-      isInitialRender.current = false;
-      previousDataRef.current = JSON.stringify(watchedFields);
       return;
     }
 
     const currentData = JSON.stringify(watchedFields);
 
+    if (isInitialRender.current) {
+      isInitialRender.current = false;
+      previousDataRef.current = currentData;
+      return;
+    }
+
+    // If data is the same as previous, no need to save
     if (currentData === previousDataRef.current) {
-      // skip if nothing changed
+      return;
+    }
+
+    // Mark that user has interacted if this is the first change after initialization
+    if (!hasUserInteracted.current) {
+      hasUserInteracted.current = true;
+      // Update previous data without triggering save for programmatic changes (like form.reset)
+      previousDataRef.current = currentData;
       return;
     }
 
