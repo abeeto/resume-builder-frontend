@@ -13,7 +13,7 @@ const EducationItem = ({ education }: { education: Education }) => {
         </div>
       </div>
 
-      <div className="flex-grow basis-auto shrink-1">
+      <div className="flex-grow basis-2/3 shrink-1">
         <div className="font-semibold text-lg">{education.degree}</div>
         <div className="font-light text-sm">{education.location}</div>
       </div>

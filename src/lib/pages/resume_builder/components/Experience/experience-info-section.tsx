@@ -14,7 +14,7 @@ const ExperienceItem = ({ experience }: { experience: Experience }) => {
         <div className="font-light text-md">{experience.location}</div>
       </div>
 
-      <div className="flex-grow basis-auto shrink-1">
+      <div className="flex-grow basis-2/3 shrink-1">
         <div className="font-semibold text-lg">{experience.position}</div>
         <div className="font-light text-sm">{experience.company}</div>
         {experience.description && (
