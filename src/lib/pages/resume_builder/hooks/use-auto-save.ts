@@ -71,11 +71,13 @@ export const useAutoSave = <T extends Record<string, unknown>>(
         });
       }
     }, delay);
+  }, [watchedFields, resumeId, endpoint, onLocalUpdate, delay, dispatch]);
 
+  useEffect(() => {
     return () => {
       if (timeoutRef.current) {
         clearTimeout(timeoutRef.current);
       }
     };
-  }, [watchedFields, resumeId, endpoint, onLocalUpdate, delay, dispatch]);
+  }, []);
 };
