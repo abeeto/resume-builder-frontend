@@ -1,9 +1,12 @@
 import { useParams } from '@tanstack/react-router';
+import { Download } from 'lucide-react';
 
 import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
 import { CopyButton } from '@/components/ui/shadcn-io/copy-button';
 import { Spinner } from '@/components/ui/shadcn-io/spinner';
 import { useResume } from '@/lib/pages/resume_builder/contexts/resume-context';
+import { usePdfDownload } from '@/lib/pages/resume_builder/hooks/use-pdf-download';
 
 const SaveStatusDisplay = () => {
   const { state } = useResume();
@@ -60,14 +63,33 @@ const ResumeIdDisplay = () => {
   );
 };
 
-export const ResumeInfo = () => {
+const PdfDownloadButton = ({
+  componentRef,
+}: {
+  componentRef: React.RefObject<HTMLDivElement | null>;
+}) => {
+  const { downloadPdf } = usePdfDownload(componentRef);
+
+  return (
+    <Button onClick={downloadPdf} variant="outline" size="sm" className="gap-2">
+      <Download className="size-4" />
+      Download PDF
+    </Button>
+  );
+};
+
+export const ResumeInfo = ({
+  componentRef,
+}: {
+  componentRef: React.RefObject<HTMLDivElement | null>;
+}) => {
   return (
     <div className="flex justify-between mx-6 px-2 py-3">
       <div className="flex items-center gap-4">
         <SaveStatusDisplay />
         <ResumeIdDisplay />
       </div>
-      <div></div>
+      <PdfDownloadButton componentRef={componentRef} />
     </div>
   );
 };

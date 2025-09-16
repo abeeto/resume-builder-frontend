@@ -1,4 +1,5 @@
 import { useParams } from '@tanstack/react-router';
+import { useRef } from 'react';
 
 import { ResumeComponent } from '@/lib/pages/resume_builder/components/resume-component';
 import { ResumeEditor } from '@/lib/pages/resume_builder/components/resume-editor';
@@ -12,6 +13,7 @@ import {
 
 const ResumeBuilderContent = () => {
   const { resumeId } = useParams({ from: '/resume/$resumeId' });
+  const componentRef = useRef<HTMLDivElement>(null);
 
   useAutoFetchPersonalInfo(resumeId);
   useAutoFetchEducations(resumeId);
@@ -19,10 +21,10 @@ const ResumeBuilderContent = () => {
 
   return (
     <div className="flex-col max-w-7xl mx-auto">
-      <ResumeInfo />
+      <ResumeInfo componentRef={componentRef} />
       <div className="flex md:justify-between md:flex-row flex-col align-center mx-auto min-h-screen overflow-x-auto">
         <ResumeEditor></ResumeEditor>
-        <ResumeComponent></ResumeComponent>
+        <ResumeComponent ref={componentRef}></ResumeComponent>
       </div>
     </div>
   );
