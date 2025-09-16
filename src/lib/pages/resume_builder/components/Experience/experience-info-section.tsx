@@ -6,19 +6,19 @@ import {
 const ExperienceItem = ({ experience }: { experience: Experience }) => {
   return (
     <div className="px-10 mx-auto flex justify-between">
-      <div className="basis-1/3 flex font-light text-base">
+      <div className="basis-1/3 flex-col font-light text-md">
         <div>
           {experience.start_date} -{' '}
           {experience.end_date ? experience.end_date : 'Present'}
         </div>
+        <div className="font-light text-md">{experience.location}</div>
       </div>
 
       <div className="flex-grow basis-auto shrink-1">
         <div className="font-semibold text-lg">{experience.position}</div>
         <div className="font-light text-sm">{experience.company}</div>
-        <div className="font-light text-sm">{experience.location}</div>
         {experience.description && (
-          <div className="font-light text-sm mt-2">
+          <div className="font-light text-md mt-2">
             {experience.description}
           </div>
         )}

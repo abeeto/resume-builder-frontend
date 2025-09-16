@@ -37,8 +37,8 @@ export const ExperienceInfoView = () => {
           company: 'New Company',
           position: 'New Position',
           description: '',
-          start_date: '2024-01',
-          end_date: '2024-12',
+          start_date: 'Jan 2024',
+          end_date: 'Mar 2025',
           location: 'New Location',
         }),
       });

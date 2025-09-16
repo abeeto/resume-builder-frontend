@@ -1,4 +1,7 @@
+import { useParams } from '@tanstack/react-router';
+
 import { Badge } from '@/components/ui/badge';
+import { CopyButton } from '@/components/ui/shadcn-io/copy-button';
 import { Spinner } from '@/components/ui/shadcn-io/spinner';
 import { useResume } from '@/lib/pages/resume_builder/contexts/resume-context';
 
@@ -6,7 +9,10 @@ const SaveStatusDisplay = () => {
   const { state } = useResume();
   return (
     <div className="">
-      <Badge variant={'outline'} className="flex flex-row">
+      <Badge
+        variant={'outline'}
+        className="flex flex-row text-sm font-light px-4 py-1"
+      >
         {state.isSaving ? (
           <>
             <Spinner variant="bars" />
@@ -38,10 +44,29 @@ const SaveStatusDisplay = () => {
   );
 };
 
+const ResumeIdDisplay = () => {
+  const { resumeId } = useParams({ from: '/resume/$resumeId' });
+
+  return (
+    <div className="flex items-center gap-2">
+      <input
+        value={resumeId || ''}
+        readOnly
+        className="flex-1 px-3 py-1 border rounded-md bg-gray-50 text-gray-600"
+        placeholder="Resume ID"
+      />
+      <CopyButton variant={'outline'} content={resumeId || ''} />
+    </div>
+  );
+};
+
 export const ResumeInfo = () => {
   return (
-    <div className="flex justify-between px-2 py-3">
-      <SaveStatusDisplay />
+    <div className="flex justify-between mx-6 px-2 py-3">
+      <div className="flex items-center gap-4">
+        <SaveStatusDisplay />
+        <ResumeIdDisplay />
+      </div>
       <div></div>
     </div>
   );

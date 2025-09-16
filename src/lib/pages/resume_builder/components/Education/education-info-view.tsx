@@ -36,8 +36,8 @@ export const EducationInfoView = () => {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           degree: 'New Degree',
-          start_date: '2024-01',
-          end_date: '2024-12',
+          start_date: 'Jan 2019',
+          end_date: 'Dec 2024',
           location: 'New Location',
         }),
       });
