@@ -5,13 +5,15 @@ export const useAutoSave = <T extends Record<string, unknown>>(
   control: Control<T>,
   resumeId: string | undefined,
   endpoint: string,
-  onSuccess?: (data: T) => void,
+  onLocalUpdate?: (data: T) => void,
+  onApiSuccess?: (data: T) => void,
   delay = 1000,
 ) => {
   const watchedFields = useWatch({ control });
   const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const isInitialRender = useRef(true);
   const previousDataRef = useRef<string>('');
+  const lastLocalUpdateRef = useRef<string>('');
 
   useEffect(() => {
     if (!resumeId) {
@@ -23,10 +25,17 @@ export const useAutoSave = <T extends Record<string, unknown>>(
       return;
     }
 
-    // Check if data actually changed
     const currentData = JSON.stringify(watchedFields);
+
     if (currentData === previousDataRef.current) {
+      // skip if nothing changed
       return;
+    }
+
+    if (onLocalUpdate && currentData !== lastLocalUpdateRef.current) {
+      // if local state is different to input fields (user must have typed something) => update local state
+      lastLocalUpdateRef.current = currentData;
+      onLocalUpdate(watchedFields as T);
     }
 
     if (timeoutRef.current) {
@@ -34,6 +43,7 @@ export const useAutoSave = <T extends Record<string, unknown>>(
     }
 
     timeoutRef.current = setTimeout(async () => {
+      // Debounced API call
       try {
         const response = await fetch(endpoint, {
           method: 'PUT',
@@ -41,13 +51,16 @@ export const useAutoSave = <T extends Record<string, unknown>>(
           body: JSON.stringify(watchedFields),
         });
 
-        if (response.ok && onSuccess) {
-          onSuccess(watchedFields as T);
+        if (response.ok) {
+          if (onApiSuccess) {
+            onApiSuccess(watchedFields as T);
+          }
           previousDataRef.current = currentData;
+        } else {
+          console.error('API call failed with status:', response.status);
         }
       } catch (error) {
         console.error('Auto-save failed', error);
-        // user notification
       }
     }, delay);
 
@@ -56,5 +69,5 @@ export const useAutoSave = <T extends Record<string, unknown>>(
         clearTimeout(timeoutRef.current);
       }
     };
-  }, [watchedFields, resumeId, endpoint, onSuccess, delay]);
+  }, [watchedFields, resumeId, endpoint, onLocalUpdate, onApiSuccess, delay]);
 };
