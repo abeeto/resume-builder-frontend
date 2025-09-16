@@ -44,7 +44,7 @@ export function PersonalInfoForm() {
   useAutoSave(
     form.control,
     resumeId,
-    `/api/resume/${resumeId}/personal-info/`,
+    `${import.meta.env.VITE_API_BASE_URL}/api/resume/${resumeId}/personal-info/`,
     (data) => {
       dispatch({
         type: 'UPDATE_PERSONAL_INFO',
