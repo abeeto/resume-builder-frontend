@@ -1,5 +1,6 @@
 import { Card, CardContent } from '@/components/ui/card';
 import { EducationInfoSection } from '@/lib/pages/resume_builder/components/Education/education-info-section';
+import { ExperienceInfoSection } from '@/lib/pages/resume_builder/components/Experience/experience-info-section';
 import { PersonalInfoSection } from '@/lib/pages/resume_builder/components/PersonalInfo/personal-info-section';
 
 export const ResumeComponent = () => {
@@ -8,6 +9,7 @@ export const ResumeComponent = () => {
       <CardContent className="px-0">
         <PersonalInfoSection />
         <EducationInfoSection />
+        <ExperienceInfoSection />
       </CardContent>
     </Card>
   );

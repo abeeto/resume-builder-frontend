@@ -41,8 +41,8 @@ const SaveStatusDisplay = () => {
 export const ResumeInfo = () => {
   return (
     <div className="flex justify-between px-2 py-3">
-      <div></div>
       <SaveStatusDisplay />
+      <div></div>
     </div>
   );
 };

@@ -1,5 +1,6 @@
 import { Card, CardContent, CardTitle } from '@/components/ui/card';
 import { EducationInfoView } from '@/lib/pages/resume_builder/components/Education/education-info-view';
+import { ExperienceInfoView } from '@/lib/pages/resume_builder/components/Experience/experience-info-view';
 import { PersonalInfoForm } from '@/lib/pages/resume_builder/components/PersonalInfo/personal-info-form';
 export function ResumeEditor() {
   return (
@@ -13,6 +14,7 @@ export function ResumeEditor() {
         </CardContent>
       </Card>
       <EducationInfoView />
+      <ExperienceInfoView />
     </div>
   );
 }

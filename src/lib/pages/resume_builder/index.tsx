@@ -6,6 +6,7 @@ import { ResumeInfo } from '@/lib/pages/resume_builder/components/resume-info';
 import { ResumeProvider } from '@/lib/pages/resume_builder/contexts/resume-context';
 import {
   useAutoFetchEducations,
+  useAutoFetchExperiences,
   useAutoFetchPersonalInfo,
 } from '@/lib/pages/resume_builder/hooks/use-resume-data';
 
@@ -14,6 +15,7 @@ const ResumeBuilderContent = () => {
 
   useAutoFetchPersonalInfo(resumeId);
   useAutoFetchEducations(resumeId);
+  useAutoFetchExperiences(resumeId);
 
   return (
     <div className="flex-col max-w-7xl mx-auto">

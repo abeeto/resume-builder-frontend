@@ -17,9 +17,21 @@ export interface Education {
   resume_id: string;
 }
 
+export interface Experience {
+  id: string;
+  company: string;
+  position: string;
+  description: string;
+  start_date: string;
+  end_date: string;
+  location: string;
+  resume_id: string;
+}
+
 export interface ResumeData {
   personalInfo: PersonalInfo;
   educations: Array<Education>;
+  experiences: Array<Experience>;
   isSaving: boolean;
 }
 
@@ -28,6 +40,9 @@ export type ResumeAction =
   | { type: 'SET_EDUCATIONS'; payload: Array<Education> }
   | { type: 'ADD_EDUCATION'; payload: Education }
   | { type: 'DELETE_EDUCATION'; payload: string }
+  | { type: 'SET_EXPERIENCES'; payload: Array<Experience> }
+  | { type: 'ADD_EXPERIENCE'; payload: Experience }
+  | { type: 'DELETE_EXPERIENCE'; payload: string }
   | { type: 'RESET_RESUME' }
   | { type: 'SET_IS_SAVING_TRUE' }
   | { type: 'SET_IS_SAVING_FALSE' };
@@ -40,6 +55,7 @@ const initialState: ResumeData = {
     email: '',
   },
   educations: [],
+  experiences: [],
   isSaving: false,
 };
 
@@ -67,6 +83,26 @@ const resumeReducer = (state: ResumeData, action: ResumeAction): ResumeData => {
       return {
         ...state,
         educations: state.educations.filter((edu) => edu.id !== action.payload),
+      };
+
+    case 'SET_EXPERIENCES':
+      return {
+        ...state,
+        experiences: action.payload,
+      };
+
+    case 'ADD_EXPERIENCE':
+      return {
+        ...state,
+        experiences: [...state.experiences, action.payload],
+      };
+
+    case 'DELETE_EXPERIENCE':
+      return {
+        ...state,
+        experiences: state.experiences.filter(
+          (exp) => exp.id !== action.payload,
+        ),
       };
 
     case 'RESET_RESUME':
