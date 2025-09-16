@@ -46,7 +46,7 @@ export const useAutoFetchPersonalInfo = (resumeId: string | undefined) => {
       return;
     }
     fetchResumeData<PersonalInfo>({
-      url: `/api/resume/${resumeId}/personal-info/`,
+      url: `${import.meta.env.VITE_API_BASE_URL}/api/resume/${resumeId}/personal-info/`,
       onSuccess: (personalInfo) => {
         dispatch({
           type: 'UPDATE_PERSONAL_INFO',
@@ -68,7 +68,7 @@ export const useAutoFetchEducations = (resumeId: string | undefined) => {
       return;
     }
     fetchResumeData<Array<Education>>({
-      url: `/api/resume/${resumeId}/education`,
+      url: `${import.meta.env.VITE_API_BASE_URL}/api/resume/${resumeId}/education`,
       onSuccess: (educations) => {
         dispatch({
           type: 'SET_EDUCATIONS',
@@ -90,7 +90,7 @@ export const useAutoFetchExperiences = (resumeId: string | undefined) => {
       return;
     }
     fetchResumeData<Array<Experience>>({
-      url: `/api/resume/${resumeId}/experience`,
+      url: `${import.meta.env.VITE_API_BASE_URL}/api/resume/${resumeId}/experience`,
       onSuccess: (experiences) => {
         dispatch({
           type: 'SET_EXPERIENCES',

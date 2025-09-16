@@ -31,16 +31,19 @@ export const EducationInfoView = () => {
     try {
       dispatch({ type: 'SET_IS_SAVING_TRUE' });
 
-      const response = await fetch(`/api/resume/${resumeId}/education/`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          degree: 'New Degree',
-          start_date: 'Jan 2019',
-          end_date: 'Dec 2024',
-          location: 'New Location',
-        }),
-      });
+      const response = await fetch(
+        `${import.meta.env.VITE_API_BASE_URL}/api/resume/${resumeId}/education/`,
+        {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            degree: 'New Degree',
+            start_date: 'Jan 2019',
+            end_date: 'Dec 2024',
+            location: 'New Location',
+          }),
+        },
+      );
 
       if (response.ok) {
         const newEducation: Education = await response.json();

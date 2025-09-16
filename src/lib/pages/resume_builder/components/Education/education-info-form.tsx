@@ -40,9 +40,12 @@ export function EducationInfoForm({
 
   const handleDelete = async () => {
     try {
-      const response = await fetch(`/api/education/${educationId}/delete/`, {
-        method: 'DELETE',
-      });
+      const response = await fetch(
+        `${import.meta.env.VITE_API_BASE_URL}/api/education/${educationId}/delete/`,
+        {
+          method: 'DELETE',
+        },
+      );
 
       if (response.ok) {
         dispatch({ type: 'DELETE_EDUCATION', payload: educationId });
@@ -77,7 +80,7 @@ export function EducationInfoForm({
   useAutoSave(
     form.control,
     resumeId,
-    `/api/resume/${resumeId}/education/${educationId}/`,
+    `${import.meta.env.VITE_API_BASE_URL}/api/resume/${resumeId}/education/${educationId}/`,
     (data) => {
       // Update the specific education in context
       const updatedEducations = state.educations.map((edu) =>

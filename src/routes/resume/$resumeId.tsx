@@ -8,7 +8,9 @@ export const Route = createFileRoute('/resume/$resumeId')({
     const { resumeId } = params;
 
     try {
-      const response = await fetch(`/api/resume/${resumeId}/`);
+      const response = await fetch(
+        `${import.meta.env.VITE_API_BASE_URL}/api/resume/${resumeId}/`,
+      );
 
       if (!response.ok) {
         if (response.status === 404) {

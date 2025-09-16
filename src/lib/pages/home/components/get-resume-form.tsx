@@ -27,7 +27,9 @@ export const GetResumeForm = () => {
   async function onSubmit(values: z.infer<typeof getResumeSchema>) {
     try {
       const { resume_id: client_input_resume_id } = values;
-      const response = await fetch(`api/resume/${client_input_resume_id}/`);
+      const response = await fetch(
+        `${import.meta.env.VITE_API_BASE_URL}/api/resume/${client_input_resume_id}/`,
+      );
 
       if (!response.ok) {
         if (response.status === 404) {

@@ -6,9 +6,12 @@ export const CreateResumeBtn = () => {
   const navigate = useNavigate();
 
   const handleCreateResume = async () => {
-    const response = await fetch('/api/resume/create/', {
-      method: 'POST',
-    });
+    const response = await fetch(
+      `${import.meta.env.VITE_API_BASE_URL}/api/resume/create/`,
+      {
+        method: 'POST',
+      },
+    );
 
     const { id: resumeId } = await response.json();
     navigate({ to: `/resume/${resumeId}` });

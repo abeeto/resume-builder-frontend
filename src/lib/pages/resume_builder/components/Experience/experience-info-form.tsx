@@ -43,9 +43,12 @@ export function ExperienceInfoForm({
 
   const handleDelete = async () => {
     try {
-      const response = await fetch(`/api/experience/${experienceId}/delete/`, {
-        method: 'DELETE',
-      });
+      const response = await fetch(
+        `${import.meta.env.VITE_API_BASE_URL}/api/experience/${experienceId}/delete/`,
+        {
+          method: 'DELETE',
+        },
+      );
 
       if (response.ok) {
         dispatch({ type: 'DELETE_EXPERIENCE', payload: experienceId });
@@ -82,7 +85,7 @@ export function ExperienceInfoForm({
   useAutoSave(
     form.control,
     resumeId,
-    `/api/experience/${experienceId}/`,
+    `${import.meta.env.VITE_API_BASE_URL}/api/experience/${experienceId}/`,
     (data) => {
       // Update the specific experience in context
       const updatedExperiences = state.experiences.map((exp) =>

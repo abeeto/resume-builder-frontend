@@ -30,18 +30,21 @@ export const ExperienceInfoView = () => {
     try {
       dispatch({ type: 'SET_IS_SAVING_TRUE' });
 
-      const response = await fetch(`/api/resume/${resumeId}/experience/`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          company: 'New Company',
-          position: 'New Position',
-          description: '',
-          start_date: 'Jan 2024',
-          end_date: 'Mar 2025',
-          location: 'New Location',
-        }),
-      });
+      const response = await fetch(
+        `${import.meta.env.VITE_API_BASE_URL}/api/resume/${resumeId}/experience/`,
+        {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            company: 'New Company',
+            position: 'New Position',
+            description: '',
+            start_date: 'Jan 2024',
+            end_date: 'Mar 2025',
+            location: 'New Location',
+          }),
+        },
+      );
 
       if (response.ok) {
         const newExperience: Experience = await response.json();
