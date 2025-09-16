@@ -68,7 +68,7 @@ export const useAutoFetchEducations = (resumeId: string | undefined) => {
       return;
     }
     fetchResumeData<Array<Education>>({
-      url: `${import.meta.env.VITE_API_BASE_URL}/api/resume/${resumeId}/education`,
+      url: `${import.meta.env.VITE_API_BASE_URL}/api/resume/${resumeId}/education/`,
       onSuccess: (educations) => {
         dispatch({
           type: 'SET_EDUCATIONS',
@@ -90,7 +90,7 @@ export const useAutoFetchExperiences = (resumeId: string | undefined) => {
       return;
     }
     fetchResumeData<Array<Experience>>({
-      url: `${import.meta.env.VITE_API_BASE_URL}/api/resume/${resumeId}/experience`,
+      url: `${import.meta.env.VITE_API_BASE_URL}/api/resume/${resumeId}/experience/`,
       onSuccess: (experiences) => {
         dispatch({
           type: 'SET_EXPERIENCES',

@@ -80,7 +80,7 @@ export function EducationInfoForm({
   useAutoSave(
     form.control,
     resumeId,
-    `${import.meta.env.VITE_API_BASE_URL}/api/resume/${resumeId}/education/${educationId}/`,
+    `${import.meta.env.VITE_API_BASE_URL}/api/education/${educationId}/`,
     (data) => {
       // Update the specific education in context
       const updatedEducations = state.educations.map((edu) =>
